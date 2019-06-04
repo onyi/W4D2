@@ -1,6 +1,7 @@
 class Cat < ApplicationRecord
   COLORS = %w(red blue yellow black orange white pink)
-  validates :color, inclusion: COLORS
+  # COLORS = ["red", "blue",  "yellow",  "black", "orange", "white", "pink"]
+  validates :color, inclusion: COLORS, presence: true
 
   validates :birth_date, timeliness: { on_or_before: lambda { Date.current },                                       type: :date }
 
@@ -19,7 +20,7 @@ class Cat < ApplicationRecord
     return age
   end
 
-  def color
+  def colors
     COLORS
   end
 end
