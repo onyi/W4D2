@@ -19,7 +19,7 @@ class CatsController < ApplicationController
     if @cat.save
       redirect_to cat_url(@cat)
     else 
-      render json: @cat.errors.full_messages, status: 418
+      render json: @cat.errors.full_messages, status: :unable_to_create
     end
   end
   
@@ -27,8 +27,14 @@ class CatsController < ApplicationController
     @cat = Cat.find_by(id: params[:id])
     render :edit
   end
-
+  
   def update
+    @cat = Cat.find_by(id: params[:id])
+    if @cat.update_attributes(cat_params)
+      redirect_to cat_url(@cat)
+    else 
+      render json: @cat.errors.full_messages, status: :unable_to_update
+    end
   end
 
   private
